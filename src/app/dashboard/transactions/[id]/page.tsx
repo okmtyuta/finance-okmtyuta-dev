@@ -11,7 +11,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { DeleteFinancialTransactionForm } from "@/components/form/delete-bank-transaction-form"
+import { DeleteBankTransactionForm } from "@/components/form/delete-bank-transaction-form"
 import { bankTransactionTable } from "@/db/schemas/transaction/schema"
 
 interface PageProps {
@@ -41,7 +41,7 @@ const Page = async ({ params }: PageProps) => {
 					<CardHeader>
 						<CardTitle>{bankTransaction.bankAccount.name}</CardTitle>
 						<CardAction>
-							<DeleteFinancialTransactionForm financialTransactionId={bankTransaction.id} />
+							<DeleteBankTransactionForm financialTransactionId={bankTransaction.id} />
 						</CardAction>
 					</CardHeader>
 					<CardContent>
