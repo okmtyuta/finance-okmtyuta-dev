@@ -1,0 +1,34 @@
+version: '3'
+
+tasks:
+  db:push:
+    desc: Push database schema changes to NeonDB
+    cmd: pnpm drizzle-kit push
+
+  db:generate:
+    desc: Generate new database migrations
+    cmd: pnpm drizzle-kit generate
+
+  db:studio:
+    desc: Open Drizzle Studio for database inspection
+    cmd: pnpm drizzle-kit studio
+
+  dev:
+    desc: Start development server with Turbopack
+    cmd: pnpm dev
+
+  build:
+    desc: Build application for production
+    cmd: pnpm build
+
+  format:
+    desc: Format code with Biome
+    cmd: pnpm format
+
+  check:
+    desc: Lint and format code with Biome
+    cmd: pnpm check
+
+  lint:
+    desc: Run Next.js linting
+    cmd: pnpm lint
