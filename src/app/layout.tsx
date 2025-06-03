@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 	title: "okmtyuta.dev",
 	description: "okmtyuta development site",
 }
+export const dynamic = 'force-dynamic'
 
 interface RootLayoutProps {
 	children: ReactNode
