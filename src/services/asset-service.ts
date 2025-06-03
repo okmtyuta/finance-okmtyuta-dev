@@ -141,7 +141,7 @@ export const getFundNameByAssocCode = async ({ assocCode }: GetFundNameBySearchC
 	const url = `https://www.wealthadvisor.co.jp/snapshot/${searchCode}`
 	const dom = await JSDOM.fromURL(url)
 	const document = dom.window.document
-	const name = document.querySelector("p.common-fund-name-title")?.textContent
+	const name = document.querySelector("h1.common-fund-name-title")?.textContent
 
 	if (name == null) {
 		throw new Error(`ファンド名が取得できません: ${assocCode}`)
