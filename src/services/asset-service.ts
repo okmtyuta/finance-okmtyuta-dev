@@ -152,18 +152,28 @@ export const getFundNameByAssocCode = async ({ assocCode }: GetFundNameBySearchC
 
 interface FindFundByAssocCodeParams {
 	assocCode: string
+	secBankAccountId: number
 }
-export const findFundByAssocCode = async ({ assocCode }: FindFundByAssocCodeParams) => {
-	const fund = await db.query.fundTable.findFirst({ where: eq(fundTable.assocCode, assocCode) })
+export const findFundInSecBankByAssocCode = async ({
+	assocCode,
+	secBankAccountId,
+}: FindFundByAssocCodeParams) => {
+	const fund = await db.query.fundTable.findFirst({
+		where: and(
+			eq(fundTable.assocCode, assocCode),
+			eq(fundTable.secBankAccountId, secBankAccountId),
+		),
+	})
 	return fund
 }
 
 interface AddFundParams {
 	assocCode: string
+	secBankAccountId: number
 	amount: number
 }
-export const addFund = async ({ assocCode, amount }: AddFundParams) => {
-	const fund = await findFundByAssocCode({ assocCode })
+export const addFund = async ({ assocCode, secBankAccountId, amount }: AddFundParams) => {
+	const fund = await findFundInSecBankByAssocCode({ assocCode, secBankAccountId })
 	if (fund == null) {
 		throw new Error(`ファンドが見つかりません: ${assocCode}`)
 	}
@@ -202,7 +212,7 @@ export const calculateTotalFundPrice = async ({
 	const navs = await Promise.all(
 		funds.map(async (fund) => {
 			const nav = await fetchFundNavByAssocCode({ assocCode: fund.assocCode })
-			return nav * fund.amount / 10000
+			return (nav * fund.amount) / 10000
 		}),
 	)
 	const price = navs.reduce((acc, cur) => acc + cur, 0)
